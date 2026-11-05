@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Pengaturan - Si Pintar</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- Tombol kembali ke halaman utama -->
+  <div class="atas"><button class="tombol kembali kuning" data-tombol="kembali" data-tuju="index.html" aria-label="Kembali">⬅ Kembali</button></div>
+
+  <main class="halaman">
+    <div class="besar" aria-hidden="true">⚙️</div>
+    <h1>Pengaturan</h1>
+    <!-- TODO tahap berikutnya: ganti blok ini dengan fitur Pengaturan -->
+    <p class="isi">Atur suara aplikasi.</p>
+    <!-- Saklar suara: menyimpan pilihan di localStorage ("suara" = on/off) -->
+    <button id="saklar" class="tombol saklar hijau" data-tombol="menu"></button>
+  </main>
+
+  <script src="./sound.js"></script>
+  <script src="./app.js"></script>
+  <script>
+    // Tampilkan status suara lalu balik statusnya saat ditekan
+    const saklar = document.getElementById('saklar');
+    const tampil = () => saklar.textContent = Suara.aktif() ? '🔊 Suara: Hidup' : '🔇 Suara: Mati';
+    saklar.addEventListener('click', () => {
+      localStorage.setItem('suara', Suara.aktif() ? 'off' : 'on');
+      tampil(); Suara.tekan();
+    });
+    tampil();
+  </script>
+</body>
+</html>

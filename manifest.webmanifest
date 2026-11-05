@@ -1,0 +1,14 @@
+{
+  "name": "Si Pintar - Belajar Sambil Bermain",
+  "short_name": "Si Pintar",
+  "description": "Aplikasi belajar anak usia 3-6 tahun",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#FFF4D6",
+  "theme_color": "#FFC93C",
+  "icons": [
+    { "src": "logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

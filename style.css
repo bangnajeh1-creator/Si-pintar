@@ -1,0 +1,135 @@
+/* ==========================================================
+   style.css - gaya seluruh aplikasi
+   Gaya visual: "balok mainan" - tombol tebal dengan tepi bawah
+   seperti balok yang bisa ditekan. Warna cerah, huruf bulat.
+   ========================================================== */
+
+/* ---- Warna & ukuran (ubah di sini, seluruh aplikasi ikut berubah) ---- */
+:root {
+  --latar: #FFF4D6;        /* krem matahari */
+  --tinta: #2B3A67;        /* biru tua untuk teks */
+  --kuning: #FFC93C;
+  --merah-muda: #FF5C7A;
+  --biru: #3BA5F5;
+  --hijau: #3CCB7F;
+  --ungu: #9B6BFF;
+  --jingga: #FF8A3D;
+  --radius: 32px;
+  --tepi: 10px;            /* tebal tepi bawah tombol (efek balok) */
+  --font: "Baloo 2", "Nunito", ui-rounded, "Trebuchet MS", system-ui, sans-serif;
+}
+
+/* ---- Reset dasar ---- */
+* { box-sizing: border-box; margin: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body {
+  font-family: var(--font);
+  color: var(--tinta);
+  background: var(--latar);
+  overflow: hidden;                 /* aplikasi layar penuh, tanpa scroll */
+  user-select: none;                /* anak sering menekan lama; cegah blok teks */
+  touch-action: manipulation;       /* hilangkan jeda 300ms & zoom dobel-tap */
+}
+
+/* ---- Latar dekoratif: awan & bintang bergerak pelan ---- */
+.latar { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+.hias { position: absolute; font-size: 56px; opacity: .55; animation: melayang 7s ease-in-out infinite; }
+.hias:nth-child(1) { top: 8%;  left: 6%; }
+.hias:nth-child(2) { top: 14%; right: 8%; animation-delay: -2s; }
+.hias:nth-child(3) { bottom: 10%; left: 10%; animation-delay: -4s; }
+.hias:nth-child(4) { bottom: 14%; right: 6%; animation-delay: -1s; }
+@keyframes melayang { 50% { transform: translateY(-16px) rotate(6deg); } }
+
+/* ---- Tata letak halaman utama ---- */
+.halaman {
+  height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: clamp(10px, 2.5vh, 24px);
+  padding: 16px 24px;
+}
+
+/* ---- Pojok atas: tombol bulat Pengaturan & Orang Tua ---- */
+.pojok { position: fixed; top: 16px; display: flex; gap: 12px; }
+.pojok.kiri { left: 16px; }
+.pojok.kanan { right: 16px; }
+.bulat {
+  width: 72px; height: 72px; border-radius: 50%;
+  font-size: 34px; display: grid; place-items: center;
+}
+
+/* ---- Logo & nama aplikasi ---- */
+.logo { width: clamp(90px, 18vh, 150px); filter: drop-shadow(0 6px 0 rgba(43,58,103,.15)); animation: goyang 4s ease-in-out infinite; }
+@keyframes goyang { 50% { transform: rotate(-4deg) scale(1.04); } }
+h1 { font-size: clamp(36px, 7vh, 64px); line-height: 1; letter-spacing: .5px; }
+.sub { font-size: clamp(16px, 2.6vh, 22px); opacity: .75; margin-top: -8px; }
+
+/* ---- Tombol dasar "balok": warna diatur lewat --warna ---- */
+.tombol {
+  --warna: var(--kuning);
+  --warna-gelap: color-mix(in srgb, var(--warna), #000 28%);   /* tepi bawah otomatis lebih gelap */
+  font: inherit; font-weight: 800; color: #fff;
+  background: var(--warna);
+  border: 0; border-radius: var(--radius);
+  box-shadow: 0 var(--tepi) 0 var(--warna-gelap);
+  cursor: pointer; text-shadow: 0 2px 0 rgba(0,0,0,.18);
+  transition: transform .08s, box-shadow .08s;
+}
+/* Saat disentuh: tombol "tenggelam" ke bawah */
+.tombol:active { transform: translateY(var(--tepi)); box-shadow: 0 0 0 var(--warna-gelap); }
+.tombol:focus-visible { outline: 5px solid var(--tinta); outline-offset: 4px; }
+
+/* Animasi membal setelah ditekan (class ditambah oleh app.js) */
+.membal { animation: membal .35s ease; }
+@keyframes membal { 40% { transform: scale(1.12); } 70% { transform: scale(.96); } }
+
+/* ---- Tombol besar "Mulai Belajar" ---- */
+.mulai {
+  --warna: var(--merah-muda);
+  font-size: clamp(26px, 5vh, 40px);
+  padding: 14px 56px;
+  animation: denyut 2s ease-in-out infinite;   /* menarik perhatian anak */
+}
+@keyframes denyut { 50% { transform: scale(1.05); } }
+
+/* ---- Menu utama: 5 kartu besar ---- */
+.menu { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(14px, 2.4vw, 28px); }
+.kartu {
+  width: clamp(130px, 17vw, 190px);
+  aspect-ratio: 1 / 1.05;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  font-size: clamp(16px, 2.4vw, 22px);
+}
+.kartu .ikon { font-size: clamp(48px, 8vw, 78px); line-height: 1; filter: drop-shadow(0 4px 0 rgba(0,0,0,.15)); }
+.biru   { --warna: var(--biru); }
+.hijau  { --warna: var(--hijau); }
+.ungu   { --warna: var(--ungu); }
+.jingga { --warna: var(--jingga); }
+.kuning { --warna: var(--kuning); }
+.kuning, .kuning .ikon { color: var(--tinta); text-shadow: none; }
+
+/* Tombol bulat dan kartu di pojok memakai warna putih */
+.putih { --warna: #fff; color: var(--tinta); text-shadow: none; --warna-gelap: #E3D3A4; }
+
+/* ---- Halaman dalam (placeholder fitur) ---- */
+.atas { position: fixed; top: 16px; left: 16px; }
+.kembali { font-size: 30px; padding: 12px 28px; }
+.besar { font-size: clamp(90px, 20vh, 160px); animation: goyang 3s ease-in-out infinite; }
+.isi { text-align: center; max-width: 560px; font-size: 22px; line-height: 1.4; }
+
+/* ---- Kotak dialog gerbang orang tua ---- */
+dialog { border: 0; border-radius: var(--radius); padding: 28px 36px; background: #fff; color: var(--tinta); text-align: center; font-family: var(--font); box-shadow: 0 10px 0 rgba(43,58,103,.2); margin: auto; }
+dialog::backdrop { background: rgba(43,58,103,.55); }
+dialog h2 { font-size: 26px; }
+#gerbang-soal { font-size: 52px; font-weight: 800; margin: 8px 0; }
+#gerbang-isian { font: inherit; font-size: 32px; width: 160px; text-align: center; padding: 8px; border: 4px solid var(--kuning); border-radius: 20px; }
+.baris { display: flex; gap: 14px; justify-content: center; margin-top: 18px; }
+.baris .tombol { font-size: 24px; padding: 10px 28px; }
+
+/* ---- Saklar suara (Pengaturan) ---- */
+.saklar { font-size: 28px; padding: 16px 40px; }
+
+/* ---- Hormati pengguna yang mematikan animasi ---- */
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+/* ---- Tablet potret / layar kecil: kartu lebih kecil ---- */
+@media (max-width: 700px) { .kartu { width: 42vw; } .bulat { width: 60px; height: 60px; font-size: 28px; } }

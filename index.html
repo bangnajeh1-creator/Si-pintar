@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <!-- Layar penuh di tablet; cegah anak tanpa sengaja memperbesar layar -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#FFC93C">
+  <title>Si Pintar - Belajar Sambil Bermain</title>
+  <!-- PWA: manifest + ikon -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Hiasan latar (hanya dekorasi, disembunyikan dari pembaca layar) -->
+  <div class="latar" aria-hidden="true">
+    <span class="hias">☁️</span><span class="hias">⭐</span><span class="hias">🌈</span><span class="hias">🎈</span>
+  </div>
+
+  <!-- Tombol pojok kiri: Pengaturan -->
+  <div class="pojok kiri">
+    <button class="tombol bulat putih" data-tombol="menu" data-tuju="pengaturan.html" aria-label="Pengaturan">⚙️</button>
+  </div>
+
+  <!-- Tombol pojok kanan: Orang Tua (dilindungi gerbang soal, lihat app.js) -->
+  <div class="pojok kanan">
+    <button id="btn-orang-tua" class="tombol bulat putih" data-tombol="menu" aria-label="Orang Tua">👨‍👩‍👧</button>
+  </div>
+
+  <main class="halaman">
+
+    <!-- 1 & 2. Logo dan nama aplikasi -->
+    <img class="logo" src="logo.svg" alt="Logo Si Pintar">
+    <h1>Si Pintar</h1>
+    <p class="sub">Belajar sambil bermain!</p>
+
+    <!-- 3. Tombol Mulai Belajar -->
+    <button class="tombol mulai" data-tombol="menu" data-tuju="mulai-belajar.html">▶ Mulai Belajar</button>
+
+    <!-- 4. Menu utama: tambah kartu baru cukup salin satu <button> -->
+    <nav class="menu" aria-label="Menu belajar">
+      <button class="tombol kartu biru"   data-tombol="menu" data-tuju="mewarnai.html"><span class="ikon">🎨</span>Mewarnai</button>
+      <button class="tombol kartu hijau"  data-tombol="menu" data-tuju="menggambar.html"><span class="ikon">✏️</span>Menggambar</button>
+      <button class="tombol kartu ungu"   data-tombol="menu" data-tuju="berhitung.html"><span class="ikon">🔢</span>Berhitung</button>
+      <button class="tombol kartu jingga" data-tombol="menu" data-tuju="huruf.html"><span class="ikon">🔤</span>Mengenal Huruf</button>
+      <button class="tombol kartu kuning" data-tombol="menu" data-tuju="tentang.html"><span class="ikon">💡</span>Tentang</button>
+    </nav>
+  </main>
+
+  <!-- Gerbang Orang Tua: soal penjumlahan sebelum masuk -->
+  <dialog id="gerbang">
+    <h2>Khusus orang tua</h2>
+    <p>Jawab soal ini untuk masuk</p>
+    <div id="gerbang-soal"></div>
+    <input id="gerbang-isian" type="number" inputmode="numeric" aria-label="Jawaban">
+    <div class="baris">
+      <button id="gerbang-batal" class="tombol putih">Batal</button>
+      <button id="gerbang-ok" class="tombol hijau">Masuk</button>
+    </div>
+  </dialog>
+
+  <!-- Skrip: suara dulu, baru logika aplikasi -->
+  <script src="sound.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
